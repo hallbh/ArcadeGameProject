@@ -1,0 +1,23 @@
+package GameObjects;
+
+import java.io.File;
+
+public class Brick extends Block {
+	
+	boolean isDoor;
+	boolean isPowerup;
+	
+	public Brick(boolean isDoor, boolean isPowerup, int x, int y) {
+		super(x, y);
+		this.isDoor = isDoor;
+		this.isPowerup = isPowerup;
+		this.sprite = new File("Sprites/brickWall.png");
+	}
+	
+	@Override
+	public void collide(GameObject obj) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+}

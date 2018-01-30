@@ -1,0 +1,108 @@
+import java.awt.GraphicsConfiguration;
+import java.awt.HeadlessException;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import GameObjects.Player;
+
+public class GameFrame extends JFrame /*implements KeyListener*/ {
+	
+	JPanel gamePanel = new GamePanel();
+	LevelPanel level = new LevelPanel();
+	Player p = level.getPlayer();
+	KeyboardListener keys;
+
+	public GameFrame() throws HeadlessException {
+		this.level.setFocusable(true);
+		this.keys = new KeyboardListener(this.level);
+		this.level.addKeyListener(this.keys);	
+		this.addKeyListener(this.keys);
+	}
+
+	public GameFrame(GraphicsConfiguration arg0) {
+		super(arg0);
+		// TODO Auto-generated constructor stub.
+	}
+
+	public GameFrame(String arg0) throws HeadlessException {
+		super(arg0);
+		// TODO Auto-generated constructor stub.
+	}
+
+	public GameFrame(String arg0, GraphicsConfiguration arg1) {
+		super(arg0, arg1);
+		// TODO Auto-generated constructor stub.
+	}
+/*
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		System.out.println("Key pressed");
+		
+		switch(key){
+			case KeyEvent.VK_LEFT :
+				System.out.println("swag");
+				this.p.startMoving(1);
+				break;
+			case KeyEvent.VK_RIGHT :
+				System.out.println("yolo");
+				this.p.startMoving(2);
+				break;
+			case KeyEvent.VK_UP :
+				this.p.startMoving(3);
+				break;
+			case KeyEvent.VK_DOWN :
+				this.p.startMoving(4);
+				break;
+			default :
+				break;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
+		
+		switch(key){
+			case KeyEvent.VK_LEFT :
+				this.p.stopMoving();
+				break;
+			case KeyEvent.VK_RIGHT :
+				this.p.stopMoving();
+				break;
+			case KeyEvent.VK_UP :
+				this.p.stopMoving();
+				break;
+			case KeyEvent.VK_DOWN :
+				this.p.stopMoving();
+				break;
+			default :
+				break;
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		int key = e.getKeyCode();
+		
+		switch(key) {
+			case KeyEvent.VK_D ://go down a level
+				System.out.println("Big D");
+				if(this.level.getLevelNum() > 1) {
+					this.level = new LevelPanel(this.level.getLevelNum() - 1);
+				}
+				break;
+			case KeyEvent.VK_U ://go up a level
+				if(this.level.getLevelNum() < 2) {
+					this.level = new LevelPanel(this.level.getLevelNum() + 1);
+				}
+				break;
+			case KeyEvent.VK_E ://lay an egg
+				break;
+			default :
+				break;
+		}
+	}
+*/
+}

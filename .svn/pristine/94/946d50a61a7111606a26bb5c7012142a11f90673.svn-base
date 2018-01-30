@@ -1,0 +1,70 @@
+import java.awt.GraphicsConfiguration;
+import java.awt.HeadlessException;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import GameObjects.Player;
+
+public class GameFrame extends JFrame implements Runnable{
+	
+	JPanel gamePanel = new GamePanel();
+	LevelPanel level;
+	Player p;
+	KeyboardListener keys;
+	int levelNum;
+
+	public GameFrame() throws HeadlessException {
+		LevelPanel starter = new LevelPanel();
+		this.level = starter;
+		this.levelNum = this.level.getLevelNum();
+		this.p = this.level.getPlayer();
+		this.level.setFocusable(true);
+		this.keys = new KeyboardListener(this.level, this);
+		this.level.addKeyListener(this.keys);	
+		this.addKeyListener(this.keys);
+		
+		new Thread(this).start();
+	}
+
+	public GameFrame(GraphicsConfiguration arg0) {
+		super(arg0);
+		// TODO Auto-generated constructor stub.
+	}
+
+	public GameFrame(String arg0) throws HeadlessException {
+		super(arg0);
+		// TODO Auto-generated constructor stub.
+	}
+
+	public GameFrame(String arg0, GraphicsConfiguration arg1) {
+		super(arg0, arg1);
+		// TODO Auto-generated constructor stub.
+	}
+	
+	public void loadLevel(LevelPanel l, KeyboardListener k){
+		this.remove(this.level);
+		this.level = l;
+		this.add(this.level);
+		this.level.addKeyListener(k);
+		this.addKeyListener(k);
+		this.setVisible(false);
+		this.setVisible(true);
+	}
+
+	@Override
+	public void run() {
+		try {
+			while (true) {
+				Thread.sleep(1000 / 30);
+				this.repaint();
+				this.revalidate();
+				if(this.level.gameOver()){
+					this.loadLevel(new LevelPanel(), this.keys);
+				}
+			}
+		} catch (InterruptedException e) {
+			// nothing to do
+		}
+	}
+}

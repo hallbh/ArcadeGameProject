@@ -1,0 +1,11 @@
+package GameObjects;
+
+public abstract class Block extends GameObject {
+
+	public Block() {
+		// TODO Auto-generated constructor stub.
+	}
+	
+	public abstract void collide(GameObject obj);
+
+}

@@ -1,0 +1,13 @@
+package GameObjects;
+
+
+public abstract class Enemy extends GameObject {
+	
+	public Enemy(int x, int y, GameObject[][] map, Bomb[][] bombMap) {
+		super(x, y, 30, map, bombMap);
+	}
+
+	@Override
+	public abstract void collide(GameObject obj);
+
+}

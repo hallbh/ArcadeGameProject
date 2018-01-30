@@ -1,0 +1,63 @@
+package GameObjects;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class KeyboardListener implements KeyListener {
+	
+	private Player p;
+	
+	public KeyboardListener(Player p) {
+		this.p = p;
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		
+		switch(key){
+			case KeyEvent.VK_LEFT :
+				this.p.startMoving(1);
+				break;
+			case KeyEvent.VK_RIGHT :
+				this.p.startMoving(2);
+				break;
+			case KeyEvent.VK_UP :
+				this.p.startMoving(3);
+				break;
+			case KeyEvent.VK_DOWN :
+				this.p.startMoving(4);
+				break;
+			default :
+				break;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
+		
+		switch(key){
+			case KeyEvent.VK_LEFT :
+				this.p.stopMoving();
+				break;
+			case KeyEvent.VK_RIGHT :
+				this.p.stopMoving();
+				break;
+			case KeyEvent.VK_UP :
+				this.p.stopMoving();
+				break;
+			case KeyEvent.VK_DOWN :
+				this.p.stopMoving();
+				break;
+			default :
+				break;
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+
+	}
+
+}

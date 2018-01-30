@@ -1,0 +1,78 @@
+package GameObjects;
+
+import java.awt.geom.Point2D;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+public abstract class Enemy extends GameObject {
+	
+	protected int direction;
+	protected boolean blownUp;
+	
+	public Enemy(int x, int y, GameObject[][] map, Bomb[][] bombMap) {
+		super(x, y, 30, map, bombMap);
+		this.direction = (int)(Math.random() * 4);
+		this.blownUp = false;
+	}
+
+	@Override
+	public abstract void collide(GameObject obj);
+	
+	@Override
+	public void collideWithExplosion(Explosion explosion){
+		this.blownUp = true;
+		Point2D temp = this.convertToGrid();
+		this.map[(int) temp.getY()][(int) temp.getX()] = explosion;
+		new Thread(explosion).start();
+	}
+	
+	@Override
+	public void collideWithEnemy(Enemy enemy){
+		int direction = enemy.getDirection();
+		Point2D grid = enemy.convertToGrid();
+		int tempDirection = (int)(Math.random() * 4);
+		while(tempDirection == direction){				
+			tempDirection = (int)(Math.random() * 4);
+		}
+		enemy.setDirection(tempDirection);
+		enemy.setY((int)(grid.getY() * 32));
+		enemy.setX((int)(grid.getX() * 32));
+	}
+	
+	public void collideWithPowerup(Powerup p){
+		//TODO, make turn around
+	}
+	public void collideWithDoor(Door d){
+		//TODO, make turn around
+	}
+	
+	@Override
+	public void collideWithPlayer(Player player){
+		int rageQuit = JOptionPane.showConfirmDialog(new JFrame(), "You Lose! Try Again?");
+		if(rageQuit == JOptionPane.OK_OPTION){
+			this.map[(int) player.convertToGrid().getY()][(int) player.convertToGrid().getX()] = null;
+		} else {
+			//maybe do something else here once we implement other stuff
+			System.exit(0);
+		}
+	}
+	public int getDirection(){
+		return this.direction;
+	}
+	public void setDirection(int direction){
+		this.direction = direction;
+	}
+	public void moveX(double x){
+		this.x += x;
+	}
+	public void moveY(double y){
+		this.y += y;
+	}
+	public void setX(double x){
+		this.x = x;
+	}
+	public void setY(double y){
+		this.y = y;
+	}
+}

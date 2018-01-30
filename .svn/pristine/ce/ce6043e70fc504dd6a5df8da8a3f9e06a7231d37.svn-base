@@ -1,0 +1,90 @@
+package GameObjects;
+
+import java.awt.geom.Rectangle2D;
+import java.io.File;
+
+public class Player extends GameObject {
+	
+	private boolean isMoving;
+	private boolean canPlaceBomb;
+	private int direction; //1 = left, 2 = right, 3 = up, 4 = down 
+	//arraylist of powerups
+	private double speed;
+	private GameObject[][] map;
+	
+	public Player(int x, int y, GameObject[][] map) {
+		super(x, y, 30);
+		this.hitbox = new Rectangle2D.Double(this.x, this.y, 28, 28);
+		this.direction = 4;
+		this.speed = .2;
+		this.map = map;
+
+		this.sprite = new File("Sprites/bomberman.png");
+
+	}
+	
+	public void move(){
+		GameObject closest = this.nearestObject();
+	}
+	
+	public GameObject nearestObject(){
+		GameObject closest = null;
+		double nearestDistance = Double.MAX_VALUE;
+		for(int i = 0; i < 13; i++){
+			for(int j = 0; j < 29; j++){
+				if(map[i][j] != null){
+					double distance = this.center.distance(map[i][j].getCenterPoint());
+					if(distance < nearestDistance){
+						nearestDistance = distance;
+						closest = map[i][j];
+					}
+				}
+				
+			}
+		}
+		return closest;
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		obj.collideWithPlayer(this);
+	}
+	
+	public void stopMoving() {
+		this.isMoving = !this.isMoving;
+	}
+	
+	public void startMoving(int direction) {
+		this.isMoving = true;
+		this.direction = direction;
+	}
+	
+	public void setSpeed(double speed){
+		this.speed = speed;
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithPlayer(Player player) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+}

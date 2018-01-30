@@ -1,0 +1,57 @@
+package GameObjects;
+
+import java.io.File;
+
+public class Ballom extends Enemy {
+
+	public Ballom(int x, int y, GameObject[][] map, Bomb[][] bombMap) {
+		super(x, y, map, bombMap);
+		this.sprite = new File[]{new File("Sprites/Enemy1.png"),
+									new File("Sprites/Enemy1-2.png"),
+									new File("Sprites/Enemy1-3.png"),
+									new File("Sprites/Enemy1-2.png")};
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithPlayer(Player player) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithEnemy(Enemy enemy) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+}

@@ -1,0 +1,40 @@
+Level legend:
+# = impassible
+@ = startPos
+(1-8) = enemy of type 1, 2, 3, .. 8.
+f = open floor
+b = brick
+d = door
+s = speed powerup
+c = cap powerup
+t = detonator powerup
+e = expanded bomb range
+p = flamepass
+w = wilkin
+
+
+Levels are 29X13
+Level naming convention : level# where # is an int between 1 and 5;
+
+10/26/16
+Ben coded for about 2 hours on the abstract game object and the classes that extend it, as well as starting to implement
+the keyboard listener
+
+Caleb Coded for the next 2 hours working on trying to get LevelPanel to draw the level, to no avail. We are having major
+issues with BufferedImage and are stuck, so we are going to throw in the towel for the night and talk to Dr. Wilkin 
+tomorrow.
+
+10/27/16
+Met in computer lab and worked on collisions
+Then met with Dr. Wilkin
+
+10/27/16
+Caleb starting to code collisions.
+
+Worked for hours on getting bomb collisions and level changes to no prevail. Level changes work around 50% of the time
+in debug mode but never in regular mode.
+
+We worked for like 2-3 hours this morning fixing our actionlistener and movement (Caleb coding)
+We worked for like 2-3 hours this afternoon making collisions work, as well as bomb placement (Caleb/Ben 75/25%)
+Ben worked alone for 30 mins fixing bomb collisions then we met in one of the labs and fully debugged bomb collisions
+and then implemented loading levels (45 mins) (where flickering the frame fixed everything) (Ben coding)

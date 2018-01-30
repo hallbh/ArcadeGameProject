@@ -1,0 +1,86 @@
+import java.awt.Dimension;
+import java.awt.GraphicsConfiguration;
+import java.awt.HeadlessException;
+import java.io.File;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+public class GameFrame extends JFrame implements Runnable{
+	
+	public LevelPanel level;
+	public StatsPanel stats;
+	public KeyboardListener keys;
+
+	public GameFrame() throws HeadlessException {
+		LevelPanel l = new LevelPanel();
+		StatsPanel s = new StatsPanel();
+		
+		Dimension d = new Dimension(LevelPanel.HEIGHT, LevelPanel.WIDTH);//LSD
+		l.setSize(d);
+		
+		d.setSize(StatsPanel.HEIGHT, StatsPanel.WIDTH);
+		s.setSize(d);
+		
+		this.level = l;
+		this.stats = s;
+		
+		this.keys = new KeyboardListener(this.level);
+		this.addKeyListener(this.keys);
+		
+		new Thread(this).start();
+	}
+
+	public GameFrame(GraphicsConfiguration arg0) {
+		super(arg0);
+		// TODO Auto-generated constructor stub.
+	}
+
+	public GameFrame(String arg0) throws HeadlessException {
+		super(arg0);
+		// TODO Auto-generated constructor stub.
+	}
+
+	public GameFrame(String arg0, GraphicsConfiguration arg1) {
+		super(arg0, arg1);
+		// TODO Auto-generated constructor stub.
+	}
+	
+
+	@Override
+	public void run() {
+		try {
+			while (true) {
+				Thread.sleep(1000 / 30);
+				this.level.repaint();
+				this.stats.repaint();
+				for(int i = 0; i < this.level.enemies.size(); i++){
+					if(this.level.enemies.get(i).isExploded()){
+						this.level.enemies.remove(i);
+					}
+				}
+
+				if(this.level.enemies.size() == 0){
+					if (this.level.getLevelNum() + 1 < new File("Levels").listFiles().length) {
+						this.level.loadLevel(this.level.getLevelNum() + 1);
+						this.keys.setPlayer();
+					} else {
+						JOptionPane.showMessageDialog(null, "You Win!");
+					}
+				}
+				
+				if(this.level.gameOver()){
+					if(this.level.getPlayer().getLives() > 0){
+						this.level.loadLevel(this.level.getLevelNum());
+						this.keys.setPlayer();
+					} else {
+						this.level.loadLevel(1);
+						this.keys.setPlayer();
+					}
+				}
+			}
+		} catch (InterruptedException e) {
+			// nothing to do
+		}
+	}
+}

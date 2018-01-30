@@ -1,0 +1,60 @@
+package GameObjects;
+
+import java.io.File;
+
+public class Wall extends Block {
+
+	public Wall(int x, int y) {
+		super(x, y, 1);
+		this.sprite = new File[]{new File("Sprites/squareWall.png")};
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		obj.collideWithWall(this);
+		
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithPlayer(Player player) {
+		int direction = player.getDirection();
+		switch(direction){
+			case 1: player.moveX(2);
+			break;
+			case 2: player.moveX(-2);
+			break;
+			case 3: player.moveY(2);
+			break;
+			case 4: player.moveY(-2);
+			break;
+			default:
+			break;
+		}
+		player.stopMoving();		
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub.
+		
+	}
+
+}

@@ -1,0 +1,88 @@
+package GameObjects;
+
+import java.io.File;
+
+public class Bomb extends GameObject {
+	boolean hasMovedOut;
+	Player player;
+
+	public Bomb(int x, int y, Player player) {
+		super(x, y, 30);
+		this.sprite = new File("Sprites/bomb.png");
+		this.hasMovedOut = false;
+		this.player = player;
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		obj.collideWithBomb(this);
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithPlayer(Player player) {
+		if(this.hasMovedOut){
+			int direction = player.getDirection();
+			switch(direction){
+				case 1: player.moveX(2);
+				break;
+				case 2: player.moveX(-2);
+				break;
+				case 3: player.moveY(2);
+				break;
+				case 4: player.moveY(-2);
+				break;
+				default:
+				break;
+			}
+			player.stopMoving();
+		}
+		
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void run() {		
+		try {
+			double gridx = this.center.getX();
+			double gridy = this.center.getY();
+			double playerx = this.player.center.getX();
+			double playery = this.player.center.getY();
+			double xDist = Math.abs(playerx - gridx);
+			double yDist = Math.abs(playery - gridy);
+			
+			while(!this.hasMovedOut){
+				Thread.sleep(this.frameTime);
+				gridx = this.center.getX();
+				gridy = this.center.getY();
+				playerx = this.player.center.getX();
+				playery = this.player.center.getY();
+				xDist = Math.abs(playerx - gridx);
+				yDist = Math.abs(playery - gridy);
+				if(xDist > 32 || yDist > 32){
+					this.hasMovedOut = true;
+				}
+			}
+		} 
+		catch (InterruptedException exception) {
+			exception.printStackTrace();
+		} 
+		return;
+	}
+}

@@ -1,0 +1,18 @@
+Shiny new bells and whistles:
+
+With base functionality pretty much set, we added music and sfx.
+We attempted to add a final boss (on the last level), but it is riddled with bugs.
+Caleb and Ben were both quite busy, so some individual coding happened, but most was pair programming with fairly equal time driving and navigating
+
+Added the statspanel, which has a timer counting down, doesn't count down to anything yet, and a lives counter, which actually counts
+Making all of the sprites for 0-9 took a fair amount of time.
+
+Implemented a firewalk powerup
+
+Some bugs still exist in the code, game breaking bugs.
+This project has given me great perspective on the scope of cs projects, and the time it takes to effectively program
+
+If we were to do it again we would implement unit tests from the start, but that's a pipe dream trying to add it now,
+so we could attempt to avoid breaking parts of our code when fixing other places.
+
+The game works to a very nice degree, but not being able to organically move between levels is frustrating

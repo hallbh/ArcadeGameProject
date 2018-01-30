@@ -1,0 +1,26 @@
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+public class StatsPanel extends JPanel {
+
+	public StatsPanel() {
+		// TODO Auto-generated constructor stub.
+	}
+
+	public StatsPanel(LayoutManager layout) {
+		super(layout);
+		// TODO Auto-generated constructor stub.
+	}
+
+	public StatsPanel(boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		// TODO Auto-generated constructor stub.
+	}
+
+	public StatsPanel(LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		// TODO Auto-generated constructor stub.
+	}
+
+}

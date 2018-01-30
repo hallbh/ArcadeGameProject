@@ -1,0 +1,58 @@
+package GameObjects;
+
+public class Door extends GameObject {
+
+	public Door(int x, int y, int framesPerSecond, GameObject[][] map, Bomb[][] bombMap) {
+		super(x, y, framesPerSecond, map, bombMap);
+		// TODO Auto-generated constructor stub.
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithPlayer(Player player) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithExplosion(Explosion explosion) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithEnemy(Enemy enemy) {
+		// TODO Auto-generated method stub.
+
+	}
+
+}

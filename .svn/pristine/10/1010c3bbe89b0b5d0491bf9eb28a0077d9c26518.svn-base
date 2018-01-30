@@ -1,0 +1,83 @@
+package GameObjects;
+
+import java.io.File;
+
+public class Bomb extends GameObject {
+	boolean justLaid;
+	Player player;
+
+	public Bomb(int x, int y, Player player) {
+		super(x, y, 30);
+		this.sprite = new File("Sprites/bomb.png");
+		this.justLaid = true;
+		this.player = player;
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		obj.collideWithBomb(this);
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithPlayer(Player player) {
+		if(!this.justLaid){
+			int direction = player.getDirection();
+			switch(direction){
+				case 1: player.moveX(2);
+				break;
+				case 2: player.moveX(-2);
+				break;
+				case 3: player.moveY(2);
+				break;
+				case 4: player.moveY(-2);
+				default:
+				break;
+			}
+			player.stopMoving();
+		}
+		
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void run() {		
+		try {
+			int gridx = (int) this.convertToGrid().getX();
+			int gridy = (int) this.convertToGrid().getY();
+			int playerx = (int) this.player.convertToGrid().getX();
+			int playery = (int) this.player.convertToGrid().getY();
+			
+			while(this.justLaid){
+				Thread.sleep(this.frameTime);
+				gridx = (int) this.convertToGrid().getX();
+				gridy = (int) this.convertToGrid().getY();
+				playerx = (int) this.player.convertToGrid().getX();
+				playery = (int) this.player.convertToGrid().getY();
+				if(playerx != gridx || playery != gridy){
+					this.justLaid = false;
+				}
+			}
+		} 
+		catch (InterruptedException exception) {
+			exception.printStackTrace();
+		} 
+		return;
+	}
+}

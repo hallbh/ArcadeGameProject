@@ -1,0 +1,21 @@
+package GameObjects;
+
+import java.awt.geom.Point2D;
+
+public class Bomb extends GameObject {
+	private int x;
+	private int y;
+	private Point2D center;
+	public Bomb(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.center = new Point2D.Double(x + 16, y + 16);
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		// TODO Auto-generated method stub.
+
+	}
+
+}

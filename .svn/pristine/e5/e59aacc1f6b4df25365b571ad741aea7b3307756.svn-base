@@ -1,0 +1,26 @@
+package GameObjects;
+
+import java.awt.geom.Rectangle2D;
+import java.io.File;
+
+public class Player extends GameObject {
+	
+	private boolean isMoving;
+	
+	public Player(int x, int y) {
+		super(x, y);
+		this.hitbox = new Rectangle2D.Double(this.x, this.y, 28, 28);
+		this.sprite = new File("Sprites/bomberman.png");
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		// TODO Auto-generated method stub.
+
+	}
+	
+	public void switchMoving() {
+		this.isMoving = !this.isMoving;
+	}
+
+}

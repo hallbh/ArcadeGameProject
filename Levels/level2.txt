@@ -1,0 +1,13 @@
+#############################
+#@ffffffffffbbbbbffff1ffffff#
+#f#f#f#f#f#f#f#f#f#f#f#f#f#f#
+#bbfffffbffffffff1ffffffffff#
+#f#f#f#f#f#f#b#f#f#f#f#f#f#f#
+#ff1fffffffbbffffffff2ffffff#
+#f#f#f#f#f#f#f#f#f#f#f#f#f#f#
+#fffffffbbbffffffffffbdbbfff#
+#f#f#f#f#b#f#f#f#f#b#f#f#f#f#
+#ffff2ffffffff2fffffffffffff#
+#f#f#b#f#f#f#f#f#f#b#f#f#f#f#
+#ffbbdbbfffffffffffbbfffffff#
+#############################

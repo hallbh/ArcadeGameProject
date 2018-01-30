@@ -1,0 +1,50 @@
+package GameObjects;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JComponent;
+
+
+public abstract class GameObject extends JComponent{
+	
+	protected File sprite;
+	protected int x;
+	protected int y;
+	protected Point2D center;
+	protected Rectangle.Double hitbox;
+	
+	public GameObject() {
+		// TODO Auto-generated constructor stub.
+	}
+	
+	public abstract void collide(GameObject obj);
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		
+		BufferedImage img = null;
+		try{
+			img = ImageIO.read(this.sprite);
+		} catch (IOException e) {
+			System.out.println("Sprite not found");
+		}
+		
+		g2.drawImage(img, null, this.x, this.y);
+		/*drawDrawable(g2, this.world);
+
+		List<Drawable> drawableParts = this.world.getDrawableParts();
+		for (Drawable d : drawableParts) {
+			drawDrawable(g2, d);
+		}*/
+	}
+
+}

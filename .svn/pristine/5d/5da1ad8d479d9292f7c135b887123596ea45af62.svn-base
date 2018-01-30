@@ -1,0 +1,14 @@
+package GameObjects;
+
+import javax.swing.JComponent;
+
+public abstract class GameObject extends JComponent{
+
+	public GameObject() {
+		// TODO Auto-generated constructor stub.
+	}
+	
+	public abstract void collide(GameObject obj);
+	
+
+}

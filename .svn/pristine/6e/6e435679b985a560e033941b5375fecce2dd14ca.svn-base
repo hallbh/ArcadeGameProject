@@ -1,0 +1,41 @@
+package GameObjects;
+
+import java.io.File;
+
+public class Bomb extends GameObject {
+
+	public Bomb(int x, int y) {
+		super(x, y, 30);
+		this.sprite = new File("Sprite/bomb.png");
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		obj.collideWithBomb(this);
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithPlayer(Player player) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+}

@@ -1,0 +1,13 @@
+package GameObjects;
+
+
+public abstract class Block extends GameObject {
+
+	public Block(int x, int y, int fps, GameObject[][] map, Bomb[][] bombMap) {
+		super(x, y, fps, map, bombMap);
+	}
+	
+	@Override
+	public abstract void collide(GameObject obj);
+
+}

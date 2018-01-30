@@ -1,0 +1,36 @@
+package GameObjects;
+
+import java.awt.geom.Rectangle2D;
+import java.io.File;
+
+public class Player extends GameObject {
+	
+	private boolean isMoving;
+	private boolean canPlaceBomb;
+	private int direction; //1 = left, 2 = right, 3 = up, 4 = down 
+	//arraylist of powerups
+	
+	public Player(int x, int y) {
+		super(x, y);
+		this.hitbox = new Rectangle2D.Double(this.x, this.y, 28, 28);
+		this.direction = 4;
+
+		this.sprite = new File("Sprites/bomberman.png");
+
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		// TODO Auto-generated method stub.
+
+	}
+	
+	public void stopMoving() {
+		this.isMoving = !this.isMoving;
+	}
+	
+	public void startMoving(int direction) {
+		this.isMoving = true;
+	}
+
+}

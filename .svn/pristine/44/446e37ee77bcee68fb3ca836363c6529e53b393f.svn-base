@@ -1,0 +1,25 @@
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+
+/**
+ * 
+ *
+ */
+public class Main {
+	
+	private static JFrame frame;
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		GameFrame test = new GameFrame();
+		test.setSize(LevelPanel.WIDTH, LevelPanel.HEIGHT);
+		test.setResizable(false);
+		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		test.add(test.level, BorderLayout.CENTER);
+		test.setVisible(true);
+	}
+
+}

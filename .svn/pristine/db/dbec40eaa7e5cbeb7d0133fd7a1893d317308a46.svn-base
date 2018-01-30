@@ -1,0 +1,38 @@
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import GameObjects.KeyboardListener;
+
+/**
+ * The main class for your arcade game.
+ * 
+ * You can design your game any way you like, but make the game start
+ * by running main here.
+ * 
+ * Also don't forget to write javadocs for your classes and functions!
+ * 
+ * @author Buffalo
+ *
+ */
+public class Main {
+	
+	private static JFrame frame;
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		frame = new GameFrame();
+		frame.setSize(500, 500);
+		JPanel testicle = new GamePanel();
+		JTextField teste = new JTextField();
+		frame.add(testicle);
+		testicle.add(teste);
+		teste.addKeyListener(new KeyboardListener());
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		System.out.println("Write your cool arcade game here!");
+	}
+
+}

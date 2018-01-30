@@ -1,0 +1,20 @@
+package GameObjects;
+
+import java.awt.geom.Point2D;
+
+public abstract class Enemy extends GameObject {
+	
+	public Enemy(int x, int y, GameObject[][] map, Bomb[][] bombMap) {
+		super(x, y, 30, map, bombMap);
+	}
+
+	@Override
+	public abstract void collide(GameObject obj);
+	
+	public void collideWithExplosion(Explosion explosion){
+		Point2D temp = this.convertToGrid();
+		this.map[(int) temp.getY()][(int) temp.getX()] = explosion;
+		new Thread(explosion).start();
+	}
+
+}

@@ -1,0 +1,192 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import javax.swing.JComponent;
+
+import GameObjects.Bomb;
+import GameObjects.Brick;
+import GameObjects.Explosion;
+import GameObjects.GameObject;
+import GameObjects.Player;
+import GameObjects.Wall;
+
+public class LevelPanel extends JComponent {
+	
+	public static final int WIDTH = 932;
+	public static final int HEIGHT = 448;
+	private File level;
+	private GameObject[][] map;
+	private Bomb[][] bombMap;
+	private int levelNum;
+	private final Color BACKGROUND_COLOR = new Color(16,120,48);
+	public Thread repainterThread;
+	public Repainter repainter;
+
+	public LevelPanel() {
+		this.levelNum = 1;
+		this.level = new File("Levels/level1.txt");
+		this.map = new GameObject[14][29];
+		this.bombMap = new Bomb[14][29];
+		
+		this.generateLevel();
+		
+		this.repainter = new Repainter(30);
+		this.repainterThread = new Thread(this.repainter);
+		this.repainterThread.start();
+	}
+	
+	public LevelPanel(int level){
+		this.levelNum = level;
+		this.level = new File("Levels/level" + level + ".txt");
+		this.map = new GameObject[14][39];
+		this.bombMap = new Bomb[14][29];
+		
+		this.generateLevel();
+		
+		this.repainter = new Repainter(30);
+		this.repainterThread = new Thread(this.repainter);
+		this.repainterThread.start();
+	}
+	
+	private void generateLevel(){
+		int x = 0;
+		int y = 0;
+		Scanner scan = null;
+		try {
+			scan = new Scanner(this.level);
+			for(int i = 0; i < 13; i++){
+				x = 0;
+				String temp = scan.nextLine();
+				for(int j = 0; j < 29; j++){
+					char curr = temp.charAt(j);
+					switch(curr){
+						case 'f': this.map[i][j] = null;
+								  x += 32;
+							break;
+						case '#': this.map[i][j] = new Wall(x, y, this.map, this.bombMap);
+								  x += 32;
+							break;
+						case '@': this.map[i][j] = new Player(x, y, this.map, this.bombMap);
+								  x += 32;
+							break;
+						case 'b': this.map[i][j] = new Brick(false, false, x, y, this.map, this.bombMap);
+								  x += 32;
+							break;
+						case 'd': this.map[i][j] = new Brick(true, false, x, y, this.map, this.bombMap);
+								  x += 32;
+							break;
+						case 'p': this.map[i][j] = new Brick(false, true, x, y, this.map, this.bombMap);
+						  		  x += 32;
+							break;
+						default:  this.map[i][j] = null;
+								  x += 32;
+							break;
+					}
+					if(this.map[i][j] != null){
+						new Thread(this.map[i][j]).start();
+					}
+				}
+				y += 32;
+			}
+		} catch (FileNotFoundException exception) {
+			exception.printStackTrace();
+		} finally {
+			scan.close();
+		}
+	}
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setColor(this.BACKGROUND_COLOR);
+		g2.fillRect(0, 0, this.WIDTH, this.HEIGHT);
+		for(int i = 0; i < 14; i++){
+			for(int j = 0; j < 29; j++){
+				if(this.map[i][j] != null){
+					Point2D point = this.map[i][j].convertToGrid();
+					if((int)point.getX() != j && (int)point.getY() != i){
+						this.map[(int) point.getY()][(int) point.getX()] = this.map[i][j];
+					}
+					this.map[i][j].drawOn(g2);
+				}
+				if(this.bombMap[i][j] != null){
+					this.bombMap[i][j].drawOn(g2);
+				}
+			}
+		}
+	}
+	
+	public void addBomb(){
+		Bomb bomb = this.getPlayer().placeBomb();
+		if(bomb != null){
+			Point2D bombGrid = bomb.convertToGrid();
+			this.bombMap[(int)bombGrid.getY()][(int)bombGrid.getX()] = bomb;
+			new Thread(bomb).start();
+		}		
+	}
+	
+	public void addGameObject(GameObject obj, int x, int y){
+		this.map[y][x] = obj;
+	}
+	
+	public Player getPlayer(){
+		for(int i = 0; i < 14; i++){
+			for(int j = 0; j < 29; j++){
+				if(this.map[i][j] instanceof Player){
+					return (Player)this.map[i][j];
+				}
+			}
+		}
+		return null;
+	}
+	
+	class Repainter implements Runnable {
+		private final int fps;
+		
+		public Repainter(int fps) {
+			this.fps = fps;
+		}
+		
+		@Override
+		public void run() {
+			try {
+				while (true) {
+					Thread.sleep(1000 / this.fps);
+					LevelPanel.this.repaint();
+				}
+			} catch (InterruptedException e) {
+				// nothing to do
+			}
+		}
+	}
+	
+	public int getLevelNum() {
+		return this.levelNum;
+	}
+	
+	public boolean gameOver(){
+		for(int i = 0; i < 13; i++){
+			for(int j = 0; j < 29; j++){
+				try{
+					if(((Explosion)this.map[i][j]).getGameOver()){
+						return true;
+					}
+				}
+				catch(ClassCastException e){
+					//just making a mess
+				} 
+				catch(NullPointerException e) {
+					//so messy
+				}
+			}
+		}
+		return false;
+	}
+}

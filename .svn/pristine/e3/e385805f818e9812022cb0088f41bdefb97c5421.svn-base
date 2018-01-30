@@ -1,0 +1,46 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import javax.swing.JPanel;
+
+public class LevelPanel extends JPanel {
+	private final int WIDTH = 928;
+	private final int HEIGHT = 448;
+	private File level;
+	public LevelPanel() {
+		this.level = new File("Levels/empty.txt");
+	}
+	public LevelPanel(int level){
+		this.level = new File("Levels/level" + level + ".txt");
+	}
+	private void generateLevel(){
+		int x = 0;
+		int y = 0;
+		Scanner scan;
+		try {
+			scan = new Scanner(this.level);
+			for(int i = 0; i < 14; i++){
+				x = 0;
+				String temp = scan.nextLine();
+				for(int j = 0; j < 39; j++){
+					char curr = temp.charAt(j);
+					switch(curr){
+						case 'f': 
+							break;
+						case '#':
+							break;
+						case '@':
+							break;
+						case 'b':
+							break;
+						default:
+							break;
+					}
+				}
+			}
+		} catch (FileNotFoundException exception) {
+			exception.printStackTrace();
+		}
+	}
+}

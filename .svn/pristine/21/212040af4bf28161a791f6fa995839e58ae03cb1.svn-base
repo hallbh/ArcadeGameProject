@@ -1,0 +1,47 @@
+package GameObjects;
+
+import java.io.File;
+
+public class Fireball extends Enemy {
+	
+	private double xSpeed;
+	private double ySpeed;
+
+	public Fireball(int x, int y, GameObject[][] map, Bomb[][] bombMap, double xSpeed, double ySpeed) {
+		super(x, y, map, bombMap);
+		this.xSpeed = xSpeed;
+		this.ySpeed = ySpeed;
+		this.sprite = new File[]{new File("Sprites/fireball1.png"), new File("Sprites/fireball2.png"), new File("Sprites/fireball3.png")};
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// TODO Auto-generated method stub.
+
+	}
+
+}

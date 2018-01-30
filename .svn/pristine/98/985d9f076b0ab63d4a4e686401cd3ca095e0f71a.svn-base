@@ -1,0 +1,79 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import javax.swing.JPanel;
+
+import GameObjects.Brick;
+import GameObjects.GameObject;
+import GameObjects.Player;
+import GameObjects.Wall;
+
+public class LevelPanel extends JPanel {
+	
+	public static final int WIDTH = 928;
+	public static final int HEIGHT = 448;
+	private File level;
+	private GameObject[][] map;
+	private int levelNum;
+
+	public LevelPanel() {
+		this.levelNum = 1;
+		this.level = new File("Levels/level1.txt");
+		this.map = new GameObject[14][39];
+	}
+	
+	public LevelPanel(int level){
+		this.levelNum = level;
+		this.level = new File("Levels/level" + level + ".txt");
+		this.map = new GameObject[14][39];
+	}
+	
+	private void generateLevel(){
+		int x = 0;
+		int y = 0;
+		Scanner scan = new Scanner(System.in);
+		try {
+			scan.close();
+			scan = new Scanner(this.level);
+			for(int i = 0; i < 14; i++){
+				x = 0;
+				String temp = scan.nextLine();
+				for(int j = 0; j < 39; j++){
+					char curr = temp.charAt(j);
+					switch(curr){
+						case 'f': x += 32;
+							break;
+						case '#': this.map[i][j] = new Wall(x, y);
+								  x += 32;
+							break;
+						case '@': this.map[i][j] = new Player(x, y);
+								  x += 32;
+							break;
+						case 'b': this.map[i][j] = new Brick(false, false, x, y);
+								  x += 32;
+							break;
+						case 'd': this.map[i][j] = new Brick(true, false, x, y);
+								  x += 32;
+							break;
+						case 'p': this.map[i][j] = new Brick(false, true, x, y);
+						  		  x += 32;
+							break;
+						default:
+								  x += 32;
+							break;
+					}
+				}
+				y += 32;
+			}
+		} catch (FileNotFoundException exception) {
+			exception.printStackTrace();
+		} finally {
+			scan.close();
+		}
+	}
+	
+	public int getLevelNum() {
+		return this.levelNum;
+	}
+}

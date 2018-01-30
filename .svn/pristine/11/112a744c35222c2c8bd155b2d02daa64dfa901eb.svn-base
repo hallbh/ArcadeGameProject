@@ -1,0 +1,15 @@
+package GameObjects;
+
+public class Bomb extends GameObject {
+
+	public Bomb(int x, int y) {
+		super(x, y);
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		// TODO Auto-generated method stub.
+
+	}
+
+}

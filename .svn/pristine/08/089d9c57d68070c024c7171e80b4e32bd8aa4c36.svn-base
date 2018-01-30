@@ -1,0 +1,8 @@
+Level legend:
+# = impassible
+@ = startPos
+(1-8) = enemy of type 1, 2, 3, .. 8.
+f = open floor
+b = brick
+
+Levels are 29X13

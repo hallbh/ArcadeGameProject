@@ -1,0 +1,38 @@
+import java.awt.GraphicsConfiguration;
+import java.awt.HeadlessException;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import GameObjects.Player;
+
+public class GameFrame extends JFrame {
+	
+	JPanel gamePanel = new GamePanel();
+	LevelPanel level = new LevelPanel();
+	Player p = level.getPlayer();
+	KeyboardListener keys;
+
+	public GameFrame() throws HeadlessException {
+		this.level.setFocusable(true);
+		this.keys = new KeyboardListener(this.level);
+		this.level.addKeyListener(this.keys);	
+		this.addKeyListener(this.keys);
+	}
+
+	public GameFrame(GraphicsConfiguration arg0) {
+		super(arg0);
+		// TODO Auto-generated constructor stub.
+	}
+
+	public GameFrame(String arg0) throws HeadlessException {
+		super(arg0);
+		// TODO Auto-generated constructor stub.
+	}
+
+	public GameFrame(String arg0, GraphicsConfiguration arg1) {
+		super(arg0, arg1);
+		// TODO Auto-generated constructor stub.
+	}
+
+}

@@ -1,0 +1,64 @@
+package GameObjects;
+
+import java.io.File;
+
+public class Brick extends Block {
+	
+	boolean isDoor;
+	boolean isPowerup;
+	
+	public Brick(boolean isDoor, boolean isPowerup, int x, int y) {
+		super(x, y, 30);
+		this.isDoor = isDoor;
+		this.isPowerup = isPowerup;
+		this.sprite = new File("Sprites/brickWall.png");
+	}
+	
+	@Override
+	public void collide(GameObject obj) {
+		obj.collideWithBrick(this);		
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithPlayer(Player player) {
+		int direction = player.getDirection();
+		switch(direction){
+			case 1: player.moveX(2);
+			break;
+			case 2: player.moveX(-2);
+			break;
+			case 3: player.moveY(2);
+			break;
+			case 4: player.moveY(-2);
+			default:
+			break;
+		}
+		player.stopMoving();
+		
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub.
+		
+	}
+
+}

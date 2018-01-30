@@ -1,0 +1,55 @@
+package GameObjects;
+
+import java.io.File;
+
+public class Explosion extends GameObject {
+	
+
+	public Explosion(int x, int y, int framesPerSecond, int sprite) {
+		super(x, y, framesPerSecond);
+		switch(sprite){
+			case 1:	this.sprite = new File[]{new File("Sprites/fire_center")};
+			break;
+			case 2: this.sprite = new File[]{new File("Sprites/fire_top")};
+			break;
+		}
+		// TODO Auto-generated constructor stub.
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithPlayer(Player player) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// TODO Auto-generated method stub.
+
+	}
+
+}

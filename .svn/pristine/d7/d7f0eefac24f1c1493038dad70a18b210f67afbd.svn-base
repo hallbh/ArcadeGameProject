@@ -1,0 +1,99 @@
+
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
+
+import GameObjects.Player;
+
+public class KeyboardListener implements KeyListener {
+	
+	private Player p;
+	private LevelPanel level;
+	private GameFrame frame;
+	private boolean enabled;
+	
+	public KeyboardListener(LevelPanel level, GameFrame frame) {
+		this.p = level.getPlayer();
+		this.level = level;
+		this.frame = frame;
+		this.enabled = true;
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(this.enabled){
+			int key = e.getKeyCode();
+			
+			switch(key){
+				case KeyEvent.VK_LEFT :
+					this.p.startMoving(1);
+					break;
+				case KeyEvent.VK_RIGHT :
+					this.p.startMoving(2);
+					break;
+				case KeyEvent.VK_UP :
+					this.p.startMoving(3);
+					break;
+				case KeyEvent.VK_DOWN :
+					this.p.startMoving(4);
+					break;
+				default :
+					break;
+			}
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if(this.enabled){
+			int key = e.getKeyCode();
+			
+			switch(key){
+				case KeyEvent.VK_LEFT :
+					this.p.stopMoving();
+					break;
+				case KeyEvent.VK_RIGHT :
+					this.p.stopMoving();
+					break;
+				case KeyEvent.VK_UP :
+					this.p.stopMoving();
+					break;
+				case KeyEvent.VK_DOWN :
+					this.p.stopMoving();
+					break;
+				default :
+					break;
+			}
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		if(this.enabled){
+			char key = e.getKeyChar();
+			
+			switch(key) {
+				case 'd' ://go down a level
+					if(this.level.getLevelNum() > 1) {
+						LevelPanel temp = new LevelPanel(this.level.getLevelNum() - 1);
+						this.frame.loadLevel(temp);
+						this.enabled = false;
+					}
+					break;
+				case 'u' ://go up a level
+					if(this.level.getLevelNum() + 1 < new File("Levels").listFiles().length) {
+						LevelPanel temp = new LevelPanel(this.level.getLevelNum() + 1);
+						this.frame.loadLevel(temp);
+						this.enabled = false;
+					}
+					break;
+				case 'e' : this.level.addBomb();
+					break;
+				default :
+					break;
+			}
+		}
+	}
+
+}

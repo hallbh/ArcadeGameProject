@@ -1,0 +1,11 @@
+Level legend:
+# = impassible
+@ = startPos
+(1-8) = enemy of type 1, 2, 3, .. 8.
+f = open floor
+b = brick
+d = door
+p = powerup
+
+Levels are 29X13
+Level naming convention : level# where # is an int between 1 and 5;

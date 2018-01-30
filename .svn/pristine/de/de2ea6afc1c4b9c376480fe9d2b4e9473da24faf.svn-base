@@ -1,0 +1,86 @@
+
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import GameObjects.Player;
+
+public class KeyboardListener implements KeyListener {
+	
+	private Player p;
+	private LevelPanel level;
+	
+	public KeyboardListener(LevelPanel level) {
+		this.p = level.getPlayer();
+		this.level = level;
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		
+		switch(key){
+			case KeyEvent.VK_LEFT :
+				System.out.println("swag");
+				this.p.startMoving(1);
+				break;
+			case KeyEvent.VK_RIGHT :
+				System.out.println("yolo");
+				this.p.startMoving(2);
+				break;
+			case KeyEvent.VK_UP :
+				this.p.startMoving(3);
+				break;
+			case KeyEvent.VK_DOWN :
+				this.p.startMoving(4);
+				break;
+			default :
+				break;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
+		
+		switch(key){
+			case KeyEvent.VK_LEFT :
+				this.p.stopMoving();
+				break;
+			case KeyEvent.VK_RIGHT :
+				this.p.stopMoving();
+				break;
+			case KeyEvent.VK_UP :
+				this.p.stopMoving();
+				break;
+			case KeyEvent.VK_DOWN :
+				this.p.stopMoving();
+				break;
+			default :
+				break;
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		int key = e.getKeyCode();
+		
+		switch(key) {
+			case KeyEvent.VK_D ://go down a level
+				if(this.level.getLevelNum() > 1) {
+					this.level = new LevelPanel(this.level.getLevelNum() - 1);
+				}
+				break;
+			case KeyEvent.VK_U ://go up a level
+				if(this.level.getLevelNum() < 2) {
+					this.level = new LevelPanel(this.level.getLevelNum() + 1);
+				}
+				break;
+			case KeyEvent.VK_E ://lay an egg
+				break;
+			default :
+				break;
+		}
+	}
+
+}

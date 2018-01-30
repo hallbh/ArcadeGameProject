@@ -1,0 +1,94 @@
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
+
+import GameObjects.Player;
+
+public class KeyboardListener implements KeyListener {
+
+	private Player p;
+	private LevelPanel level;
+
+	public KeyboardListener(LevelPanel level) {
+		this.p = level.getPlayer();
+		this.level = level;
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+
+		switch (key) {
+		case KeyEvent.VK_LEFT:
+			this.p.startMoving(1);
+			break;
+		case KeyEvent.VK_RIGHT:
+			this.p.startMoving(2);
+			break;
+		case KeyEvent.VK_UP:
+			this.p.startMoving(3);
+			break;
+		case KeyEvent.VK_DOWN:
+			this.p.startMoving(4);
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
+
+		switch (key) {
+		case KeyEvent.VK_LEFT:
+			this.p.stopMoving();
+			break;
+		case KeyEvent.VK_RIGHT:
+			this.p.stopMoving();
+			break;
+		case KeyEvent.VK_UP:
+			this.p.stopMoving();
+			break;
+		case KeyEvent.VK_DOWN:
+			this.p.stopMoving();
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		char key = e.getKeyChar();
+
+		switch (key) {
+		case 'd':// go down a level
+			if (this.level.getLevelNum() > 1) {
+				this.level.loadLevel(this.level.getLevelNum() - 1);
+				this.p = this.level.getPlayer();
+			}
+			break;
+		case 'u':// go up a level
+			if (this.level.getLevelNum() + 1 < new File("Levels").listFiles().length) {
+				this.level.loadLevel(this.level.getLevelNum() + 1);
+				this.p = this.level.getPlayer();
+			}
+			break;
+		case 'e':
+			this.level.addBomb();
+			break;
+		case 'p' :
+			this.level.pause();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void setPlayer(){
+		this.p = this.level.getPlayer();
+	}
+
+}

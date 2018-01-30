@@ -1,0 +1,63 @@
+package GameObjects;
+
+import java.io.File;
+
+public class Bomb extends GameObject {
+	boolean justLaid;
+
+	public Bomb(int x, int y) {
+		super(x, y, 30);
+		this.sprite = new File("Sprite/bomb.png");
+		this.justLaid = true;
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		obj.collideWithBomb(this);
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithPlayer(Player player) {
+		if(this.justLaid){
+			return;
+		}
+		int direction = player.getDirection();
+		switch(direction){
+			case 1: player.startMoving(2);
+			break;
+			case 2: player.startMoving(1);
+			break;
+			case 3: player.startMoving(4);
+			break;
+			case 4: player.startMoving(3);
+			default:
+			break;
+		}
+		player.stopMoving();
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub.
+		
+	}
+
+}

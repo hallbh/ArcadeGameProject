@@ -1,0 +1,32 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JComponent;
+
+public class StatsPanel extends JComponent{
+	
+	public final static int HEIGHT = 64;
+	public static final int WIDTH = 932;
+	
+	private boolean isPaused;
+
+	public StatsPanel() {
+		this.isPaused = false;
+	}
+
+	@Override
+	protected void paintComponent(Graphics g){
+		super.paintComponent(g);
+		if(!this.isPaused){
+			Graphics2D g2 = (Graphics2D) g;
+			g2.setColor(Color.RED);
+			g2.fillRect(0, 0, WIDTH, HEIGHT);
+		}
+	}
+	
+	private boolean pause(){
+		return !this.isPaused;
+	}
+
+}

@@ -1,0 +1,187 @@
+package GameObjects;
+
+
+import java.awt.geom.Point2D;
+import java.io.File;
+
+public class Bomb extends GameObject {
+	boolean hasMovedOut;
+	Player player;
+	GameObject[][] map;
+	Bomb[][] bombMap;
+	private boolean isExploded;
+
+	public Bomb(int x, int y, Player player, GameObject[][] map, Bomb[][] bombMap) {
+		super(x, y, 30, map, bombMap);
+		this.sprite = new File[]{new File("Sprites/bomb.png")};
+		this.hasMovedOut = false;
+		this.player = player;
+		this.map = map;
+		this.bombMap = bombMap;
+		this.isExploded = false;
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		obj.collideWithBomb(this);
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// bombs will never collide with bricks
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// bombs will never collide with walls
+	}
+
+	@Override
+	public void collideWithPlayer(Player player) {
+		if(this.hasMovedOut){
+			int direction = player.getDirection();
+			switch(direction){
+				case 1: player.moveX(2);
+				break;
+				case 2: player.moveX(-2);
+				break;
+				case 3: player.moveY(2);
+				break;
+				case 4: player.moveY(-2);
+				break;
+				default:
+				break;
+			}
+			player.stopMoving();
+		}
+		
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// bombs will never collide with bombs
+		
+	}
+	
+	public boolean hasExploded(){
+		return this.isExploded;
+	}
+
+	@Override
+	public void run() {		
+		try {
+			double gridx = this.center.getX();
+			double gridy = this.center.getY();
+			double playerx = this.player.center.getX();
+			double playery = this.player.center.getY();
+			double xDist = Math.abs(playerx - gridx);
+			double yDist = Math.abs(playery - gridy);
+			double timer = 0;
+			
+			while(!this.isPaused){
+				Thread.sleep(this.frameTime);
+				timer += 1;
+				if(!this.hasMovedOut){
+					gridx = this.center.getX();
+					gridy = this.center.getY();
+					playerx = this.player.center.getX();
+					playery = this.player.center.getY();
+					xDist = Math.abs(playerx - gridx);
+					yDist = Math.abs(playery - gridy);
+					if(xDist > 32 || yDist > 32){
+						this.hasMovedOut = true;
+					}
+				}
+				if(timer >= 90){
+					this.explode();
+				}
+				if(this.hasExploded()){
+					break;
+				}
+			}
+		} 
+		catch (InterruptedException exception) {
+			exception.printStackTrace();
+		} 
+		return;
+	}
+	
+	public void explode(){
+		//TODO change once explosion size is implemented
+		this.isExploded = true;
+		Explosion middle = new Explosion((int)this.x, (int)this.y, 30, 1, this.map, this.bombMap);
+		Explosion top = new Explosion((int)this.x, (int)this.y - 32, 30,  2, this.map, this.bombMap);
+		Explosion bottom = new Explosion((int)this.x, (int)this.y + 32, 30, 3, this.map, this.bombMap);
+		Explosion right = new Explosion((int)this.x + 32, (int)this.y, 30, 4, this.map, this.bombMap);
+		Explosion left = new Explosion((int)this.x - 32, (int) this.y, 30, 5, this.map, this.bombMap);		
+		Point2D grid = this.convertToGrid();
+		this.map[(int)grid.getY()][(int)grid.getX()] = middle;
+		new Thread(this.map[(int)grid.getY()][(int)grid.getX()]).start();
+		if(this.map[(int)grid.getY() - 1][(int)grid.getX()] != null){
+			top.collide(this.map[(int)grid.getY() - 1][(int)grid.getX()]);
+		}
+		else{
+			this.map[(int)grid.getY() - 1][(int)grid.getX()] = top;
+			new Thread(this.map[(int)grid.getY() - 1][(int)grid.getX()]).start();
+		}
+		if(this.map[(int)grid.getY() + 1][(int)grid.getX()] != null){
+			bottom.collide(this.map[(int)grid.getY() + 1][(int)grid.getX()]);
+		}
+		else{
+			this.map[(int)grid.getY() + 1][(int)grid.getX()] = bottom;
+			new Thread(this.map[(int)grid.getY() + 1][(int)grid.getX()]).start();
+		}
+		if(this.map[(int)grid.getY()][(int)grid.getX() + 1] != null){
+			right.collide(this.map[(int)grid.getY()][(int)grid.getX() + 1]);
+		}
+		else{
+			this.map[(int)grid.getY()][(int)grid.getX() + 1] = right;
+			new Thread(this.map[(int)grid.getY()][(int)grid.getX() + 1]).start();
+		}
+		if(this.map[(int)grid.getY()][(int)grid.getX() - 1] != null){
+			left.collide(this.map[(int)grid.getY()][(int)grid.getX() - 1]);
+		}
+		else{
+			this.map[(int)grid.getY()][(int)grid.getX() - 1] = left;
+			new Thread(this.map[(int)grid.getY()][(int)grid.getX() - 1]).start();
+		}
+		for(int i = 0; i < 13; i++){
+			for(int j = 0; j < 29; j++){
+				if(this.bombMap[i][j] == this){
+					this.bombMap[i][j] = null;
+				}
+			}
+		}
+	}
+
+	@Override
+	public void collideWithExplosion(Explosion explosion) {
+		this.explode();
+	}
+
+
+	@Override
+	public void collideWithEnemy(Enemy enemy) {
+		int direction = (enemy).getDirection();
+		Point2D grid = enemy.convertToGrid();
+		int tempDirection = (int)(Math.random() * 4);
+		while(tempDirection == direction){				
+			tempDirection = (int)(Math.random() * 4);
+		}
+		(enemy).setDirection(tempDirection);
+		enemy.setY((int)(grid.getY() * 32));
+		enemy.setX((int)(grid.getX() * 32));
+	}
+
+	@Override
+	public void collideWithDoor(Door door) {
+		// TODO Auto-generated method stub.
+		
+	}
+
+	@Override
+	public void collideWithPowerup(Powerup powerup) {
+		// TODO Auto-generated method stub.
+		
+	}
+}

@@ -1,0 +1,46 @@
+package GameObjects;
+
+import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
+import java.io.File;
+
+public class FinalBoss extends Enemy {
+
+	public FinalBoss(int x, int y, GameObject[][] map, Bomb[][] bombMap) {
+		super(x, y, map, bombMap);
+		this.sprite = new File[]{new File("Sprites/finalboss.png"), new File("Sprites/finalboss2.png")};
+		this.hitbox = new Rectangle2D.Double(x, y, 188, 250);
+		this.area = new Area(this.hitbox);
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// TODO Auto-generated method stub.
+
+	}
+
+}

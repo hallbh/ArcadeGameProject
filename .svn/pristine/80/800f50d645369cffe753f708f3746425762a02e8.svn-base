@@ -1,0 +1,42 @@
+package GameObjects;
+
+import java.io.File;
+
+public class FinalBoss extends Enemy {
+
+	public FinalBoss(int x, int y, GameObject[][] map, Bomb[][] bombMap) {
+		super(x, y, map, bombMap);
+		this.sprite = new File[]{new File("Sprites/finalboss.png"), new File("Sprites/finalboss2.png")};
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collide(GameObject obj) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithBrick(Brick brick) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithWall(Wall wall) {
+		// TODO Auto-generated method stub.
+
+	}
+
+	@Override
+	public void collideWithBomb(Bomb bomb) {
+		// TODO Auto-generated method stub.
+
+	}
+
+}
